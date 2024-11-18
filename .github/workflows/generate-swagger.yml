@@ -1,10 +1,10 @@
 name: Generate Swagger
 
 on:
-  workflow_run:
-    workflows: ["Gradle Build"] # Gradle Build 워크플로우가 실행될 때마다 실행
-    types:
-      - completed
+  push:
+    tags: # 태그가 푸시될 때만 실행
+      - "v*.*.*"
+
 jobs:
   update-swagger:
     runs-on: ubuntu-latest
@@ -54,6 +54,11 @@ jobs:
         run: |
           npm install -g swagger-cli
           swagger-cli validate openapi.yaml # OpenAPI 명세서를 검증
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v2 # GitHub Release를 생성하는 액션
+        with:
+          files: openapi.yaml # 릴리즈에 포함할 파일
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
