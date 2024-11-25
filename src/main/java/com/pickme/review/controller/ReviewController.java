@@ -78,14 +78,14 @@ public class ReviewController {
         reviewDetail.setCommunication(communication);
 
         // Creating PostAnalysis
-        Review.PostAnalysis postAnalysis = new Review.PostAnalysis();
-        postAnalysis.setStrengths("Great problem-solving skills.");
-        postAnalysis.setImprovements("Improve communication during technical discussions.");
-        postAnalysis.setFeedback("The technical skills were strong, but communication could be improved.");
-        postAnalysis.setDifficulty("Moderate difficulty.");
-        postAnalysis.setResultAnalysis("The lack of clarity in explaining solutions may have impacted the final result.");
+        Review.InterviewAnalysis interviewAnalysis = new Review.InterviewAnalysis();
+        interviewAnalysis.setStrengths("Great problem-solving skills.");
+        interviewAnalysis.setImprovements("Improve communication during technical discussions.");
+        interviewAnalysis.setFeedback("The technical skills were strong, but communication could be improved.");
+        interviewAnalysis.setDifficulty("Moderate difficulty.");
+        interviewAnalysis.setInterviewResultAnalysis("The lack of clarity in explaining solutions may have impacted the final result.");
 
-        reviewDetail.setPostAnalysis(postAnalysis);
+        reviewDetail.setInterviewAnalysis(interviewAnalysis);
 
         // Creating NextPreparation
         Review.NextPreparation nextPreparation = new Review.NextPreparation();

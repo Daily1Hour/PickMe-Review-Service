@@ -48,7 +48,7 @@ public class Review {
 
         private InterviewDetail interviewDetail; // 면접 기본 정보(회사명, 지원 직무, 면접 시간, 면접 유형)
 
-        private ReviewDetail reviewDetail; // 면접 회고에 포함된 세부 항목 리스트
+        private ReviewDetail reviewDetail; // 면접 회고에 포함된 세부 항목
 
     }
 
@@ -80,7 +80,7 @@ public class Review {
 
         private Communication communication; // 의사소통 (언어적, 비언어적)
 
-        private PostAnalysis postAnalysis; // 면접 후 분석(종합적 평가, 강점, 약점, 면접 전반에 대한 평가)
+        private InterviewAnalysis interviewAnalysis; // 면접 후 분석(종합적 평가, 강점, 약점, 면접 전반에 대한 평가)
 
         private NextPreparation nextPreparation; // 다음 면접을 위한 준비 사항 및 개선 사항
     }
@@ -142,7 +142,7 @@ public class Review {
     // 면접 후 분석 및 종합적 평가 - 면접에서 잘한 점, 개선할 점, 면접 결과 분석 등
     @Data
     @NoArgsConstructor
-    public static class PostAnalysis { // 면접 후 분석(종합적 평가, 면접 전반에 대한 평가)
+    public static class InterviewAnalysis { // 면접 후 분석(종합적 평가, 면접 전반에 대한 평가)
 
         private String strengths; // 면접에서 잘한 점
 
@@ -152,7 +152,7 @@ public class Review {
 
         private String difficulty; // 면접의 난이도 평가
 
-        private String resultAnalysis; // 면접 결과 분석(ex. 추가질문에 대한 대비 부족이 약점 <- 이 부분이 불합격에 영향을 줬을것이다 라고 분석)
+        private String interviewResultAnalysis; // 면접 결과 분석(ex. 추가질문에 대한 대비 부족이 약점 <- 이 부분이 불합격에 영향을 줬을것이다 라고 분석)
 
     }
 
