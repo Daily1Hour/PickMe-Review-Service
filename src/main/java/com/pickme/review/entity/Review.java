@@ -42,7 +42,7 @@ public class Review {
     // 면접 리뷰 클래스 - 면접 하나에 대한 리뷰와 세부사항을 포함
     @Data
     @NoArgsConstructor
-    private static class InterviewReviews {
+    public static class InterviewReviews {
 
         private String reviewId; // 면접 리뷰 고유 id
 
@@ -55,7 +55,7 @@ public class Review {
     // 면접의 기본 정보 클래스 - 회사명, 직무, 면접 시간, 면접 유형 등을 포함
     @Data
     @NoArgsConstructor
-    private static class InterviewDetail { // 면접 세부 내용
+    public static class InterviewDetail { // 면접 세부 내용
 
         private String companyName; // 면접을 본 회사의 이름
 
@@ -70,7 +70,7 @@ public class Review {
     // 면접 리뷰의 세부 항목 클래스 - 사전 준비, 면접 진행 과정, 질문/답변, 의사소통, 후속 분석, 개선 사항 등을 포함
     @Data
     @NoArgsConstructor
-    private static class ReviewDetail { // 면접 리뷰 세부 내용
+    public static class ReviewDetail { // 면접 리뷰 세부 내용
 
         private Preparation preparation; // 사전 준비, 면접 전 준비 사항 및 평가
 
@@ -88,7 +88,7 @@ public class Review {
     // 면접 전 준비 사항 - 잘한 점, 개선할 점 등
     @Data
     @NoArgsConstructor
-    private static class Preparation { // 사전 준비
+    public static class Preparation { // 사전 준비
 
         private String strengths; // 면접 준비에서 잘한 점
 
@@ -99,7 +99,7 @@ public class Review {
     // 면접 진행 과정에 대한 정보 - 면접의 형식, 분위기, 면접관, 면접자/면접관 비율 등
     @Data
     @NoArgsConstructor
-    private static class InterviewProcess { // 면접 진행 과정
+    public static class InterviewProcess { // 면접 진행 과정
 
         private String format; // 면접 방식(대면/비대면 등)
 
@@ -114,7 +114,7 @@ public class Review {
     // 면접에서 주어진 질문과 그에 대한 답변, 피드백에 대한 정보
     @Data
     @NoArgsConstructor
-    private static class QuestionsAnswers { // 질문 타입, 질문, 답변, 피드백
+    public static class QuestionsAnswers { // 질문 타입, 질문, 답변, 피드백
 
         private String type; // 질문 유형 (기술 질문, 인성 질문 등)
 
@@ -129,7 +129,7 @@ public class Review {
     // 면접 중 의사소통 방식에 대한 평가 - 언어적, 비언어적, 면접관과의 상호작용 등
     @Data
     @NoArgsConstructor
-    private static class Communication { // 의사소통
+    public static class Communication { // 의사소통
 
         private String verbal; // 언어적 의사소통 (말투, 발음 등)
 
@@ -142,7 +142,7 @@ public class Review {
     // 면접 후 분석 및 종합적 평가 - 면접에서 잘한 점, 개선할 점, 면접 결과 분석 등
     @Data
     @NoArgsConstructor
-    private static class PostAnalysis { // 면접 후 분석(종합적 평가, 면접 전반에 대한 평가)
+    public static class PostAnalysis { // 면접 후 분석(종합적 평가, 면접 전반에 대한 평가)
 
         private String strengths; // 면접에서 잘한 점
 
@@ -159,7 +159,7 @@ public class Review {
     // 다음 면접을 위한 준비 사항 - 기술적 부분, 표현적 부분, 추가 연습 사항 등
     @Data
     @NoArgsConstructor
-    private static class NextPreparation { // 다음 면접을 위한 준비 사항 및 개선 사항
+    public static class NextPreparation { // 다음 면접을 위한 준비 사항 및 개선 사항
 
         private String technical; // 기술적 준비 사항 (예: 특정 기술 스킬 향상 등)
 
