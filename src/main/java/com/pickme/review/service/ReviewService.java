@@ -3,6 +3,7 @@ package com.pickme.review.service;
 import com.pickme.review.dto.get.GetInterviewReviewsDTO;
 import com.pickme.review.dto.get.GetReviewDTO;
 import com.pickme.review.dto.post.PostInterviewReviewsDTO;
+import com.pickme.review.dto.put.PutInterviewReviewsDTO;
 import com.pickme.review.entity.Review;
 import com.pickme.review.repository.ReviewMongoQueryProcessor;
 import com.pickme.review.repository.ReviewRepository;
@@ -107,6 +108,35 @@ public class ReviewService {
         Review review = reviewRepository.findByClientId(clientId);
 
         return reviewMongoQueryProcessor.deleteReview(review, reviewId);
+    }
+
+    // 면접 리뷰 수정
+    public ResponseEntity<?> updateReview(String clientId, String reviewId, PutInterviewReviewsDTO putInterviewReviewsDTO) {
+
+        // 사용자의 면접 리뷰가 없다면
+        if(!reviewRepository.existsByClientId(clientId)){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("사용자 정보가 없습니다.");
+        }
+
+        // reviewId에 해당하는 리뷰가 없다면
+        if (!reviewRepository.existsByInterviewReviewsReviewId(reviewId)){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("reviewId에 해당하는 리뷰가 없습니다.");
+        }
+
+        // 사용자 면접 리뷰 객체 가져옴
+        Review review = reviewRepository.findByClientId(clientId);
+
+        // reviewId에 해당하는 면접 리뷰를 갖고옴
+        Review.InterviewReviews interviewReviews = reviewMongoQueryProcessor.findInterviewReview(review, reviewId);
+
+        // 전달받은 DTO(PutInterviewReviewsDTO)를 interviewReviews 객체로 변환
+        reviewMapper.putInterviewReviewsDTOToInterviewReviews(putInterviewReviewsDTO, interviewReviews);
+
+        // 수정된 review 객체 저장
+        reviewRepository.save(review);
+
+        return ResponseEntity.status(HttpStatus.OK).body(String.format("%s 에 해당하는 면접 리뷰를 수정했습니다.", reviewId));
+
     }
 
 }
