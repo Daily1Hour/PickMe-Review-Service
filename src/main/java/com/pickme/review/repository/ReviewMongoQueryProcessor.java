@@ -3,7 +3,6 @@ package com.pickme.review.repository;
 import com.pickme.review.entity.Review;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
