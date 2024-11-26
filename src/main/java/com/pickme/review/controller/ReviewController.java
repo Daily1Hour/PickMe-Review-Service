@@ -1,6 +1,7 @@
 package com.pickme.review.controller;
 
 import com.pickme.review.dto.post.PostInterviewReviewsDTO;
+import com.pickme.review.dto.put.PutInterviewReviewsDTO;
 import com.pickme.review.service.ReviewService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -44,6 +45,18 @@ public class ReviewController {
         String clientId = (String) request.getAttribute("clientId");
 
         return reviewService.deleteReview(clientId, reviewId);
+    }
+
+    // 면접 리뷰 수정
+    @PutMapping("/interview")
+    public ResponseEntity<?> updateReview(HttpServletRequest request,
+                                          @RequestParam String reviewId,
+                                          @RequestBody PutInterviewReviewsDTO putInterviewReviewsDTO) {
+
+        String clientId = (String) request.getAttribute("clientId");
+
+        return reviewService.updateReview(clientId, reviewId, putInterviewReviewsDTO);
+
     }
 
 }
