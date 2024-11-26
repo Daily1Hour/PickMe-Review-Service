@@ -25,4 +25,15 @@ public class ReviewController {
 
     }
 
+    // 면접 리뷰 조회
+    @GetMapping("/interview")
+    public ResponseEntity<?> findReview (HttpServletRequest request,
+                                         @RequestParam(required = false) String reviewId) {
+
+        String clientId = (String) request.getAttribute("clientId");
+
+        return reviewService.findInterviewReview(clientId, reviewId);
+
+    }
+
 }
