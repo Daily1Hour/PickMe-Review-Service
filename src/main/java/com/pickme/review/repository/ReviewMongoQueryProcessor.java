@@ -1,7 +1,6 @@
 package com.pickme.review.repository;
 
 import com.pickme.review.entity.Review;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
