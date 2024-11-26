@@ -3,6 +3,7 @@ package com.pickme.review.service.mapper;
 import com.pickme.review.dto.get.GetInterviewReviewsDTO;
 import com.pickme.review.dto.get.GetReviewDTO;
 import com.pickme.review.dto.post.PostInterviewReviewsDTO;
+import com.pickme.review.dto.put.PutInterviewReviewsDTO;
 import com.pickme.review.entity.Review;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -23,5 +24,8 @@ public interface ReviewMapper {
 
     // interviewReviews 리스트를 GetInterviewReviewsDTO 객체로 변환
     List<GetInterviewReviewsDTO> interviewReviewsToGetInterviewReviewsDTO (List<Review.InterviewReviews> interviewReviews);
+
+    @Mapping(target = "reviewId", ignore = true)
+    void putInterviewReviewsDTOToInterviewReviews(PutInterviewReviewsDTO putInterviewReviewsDTO, @MappingTarget Review.InterviewReviews interviewReviews);
 
 }
