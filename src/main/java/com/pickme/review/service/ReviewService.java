@@ -91,4 +91,22 @@ public class ReviewService {
 
     }
 
+    // reviewId에 해당하는 리뷰 삭제
+    public ResponseEntity<?> deleteReview(String clientId, String reviewId){
+        // 사용자의 면접 리뷰가 없다면
+        if(!reviewRepository.existsByClientId(clientId)){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("사용자 정보가 없습니다.");
+        }
+
+        // reviewId에 해당하는 리뷰가 없다면
+        if (!reviewRepository.existsByInterviewReviewsReviewId(reviewId)){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("reviewId에 해당하는 리뷰가 없습니다.");
+        }
+
+        // 사용자 면접 리뷰 객체 가져옴
+        Review review = reviewRepository.findByClientId(clientId);
+
+        return reviewMongoQueryProcessor.deleteReview(review, reviewId);
+    }
+
 }
