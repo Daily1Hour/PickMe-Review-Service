@@ -13,4 +13,7 @@ public interface ReviewRepository extends MongoRepository<Review, String> {
     // 해당 사용자 면접 리뷰 정보 추출
     Review findByClientId(String clientId);
 
+    // reviewId에 해당하는 InterviewReviews가 존재하는지 확인
+    boolean existsByInterviewReviewsReviewId(String reviewId);
+
 }

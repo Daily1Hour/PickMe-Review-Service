@@ -1,7 +1,11 @@
 package com.pickme.review.service;
 
+import com.pickme.review.dto.get.GetInterviewReviewsDTO;
+import com.pickme.review.dto.get.GetReviewDTO;
 import com.pickme.review.dto.post.PostInterviewReviewsDTO;
+import com.pickme.review.dto.put.PutInterviewReviewsDTO;
 import com.pickme.review.entity.Review;
+import com.pickme.review.repository.ReviewMongoQueryProcessor;
 import com.pickme.review.repository.ReviewRepository;
 import com.pickme.review.service.mapper.ReviewMapper;
 import lombok.RequiredArgsConstructor;
@@ -10,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -18,6 +23,7 @@ public class ReviewService {
 
     private final ReviewRepository reviewRepository;
     private final ReviewMapper reviewMapper;
+    private final ReviewMongoQueryProcessor reviewMongoQueryProcessor;
 
     // 사용자의 면접 리뷰 생성&추가
     public ResponseEntity<?> createInterviewReview(String clientId, PostInterviewReviewsDTO postInterviewReviewsDTO) {
@@ -50,6 +56,86 @@ public class ReviewService {
         reviewRepository.save(review);
 
         return ResponseEntity.status(HttpStatus.CREATED).body("면접 리뷰 추가 성공");
+
+    }
+
+    // clientId에 해당하는 면접 리뷰 조희
+    public ResponseEntity<?> findInterviewReview (String clientId, String reviewId) {
+
+        // 사용자의 면접 리뷰가 없다면
+        if(!reviewRepository.existsByClientId(clientId)){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("사용자 정보가 없습니다.");
+        }
+
+        // reviewId가 null이 아닌데 reviewId에 해당하는 리뷰가 없다면
+        if (reviewId != null && !reviewRepository.existsByInterviewReviewsReviewId(reviewId)){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("reviewId에 해당하는 리뷰가 없습니다.");
+        }
+
+        // 사용자 면접 리뷰 객체 가져옴
+        Review review = reviewRepository.findByClientId(clientId);
+
+        // review 객체를 GetReviewDTO로 변환
+        GetReviewDTO getReviewDTO = reviewMapper.reviewToGetReviewDTO(review);
+
+        // 특정 reviewId에 해당하는 면접 리뷰 필터링 (조건이 없으면 전체 리뷰 반환)
+        List<Review.InterviewReviews> interviewReviews = reviewMongoQueryProcessor.filterFindInterviewReviews(review, reviewId);
+
+        // 필터링 된 interviewReviews 객체를 GetInterviewReviewsDTO로 변환
+        List<GetInterviewReviewsDTO> getInterviewReviewsDTO = reviewMapper.interviewReviewsToGetInterviewReviewsDTO(interviewReviews);
+
+        // 변환된 getInterviewReviewsDTO를 getReviewDTO의 interviewReviews 리스트에 추가
+        getReviewDTO.setInterviewReviews(getInterviewReviewsDTO);
+
+        // getReviewDTO를 반환
+        return ResponseEntity.status(HttpStatus.FOUND).body(getReviewDTO);
+
+    }
+
+    // reviewId에 해당하는 리뷰 삭제
+    public ResponseEntity<?> deleteReview(String clientId, String reviewId){
+        // 사용자의 면접 리뷰가 없다면
+        if(!reviewRepository.existsByClientId(clientId)){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("사용자 정보가 없습니다.");
+        }
+
+        // reviewId에 해당하는 리뷰가 없다면
+        if (!reviewRepository.existsByInterviewReviewsReviewId(reviewId)){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("reviewId에 해당하는 리뷰가 없습니다.");
+        }
+
+        // 사용자 면접 리뷰 객체 가져옴
+        Review review = reviewRepository.findByClientId(clientId);
+
+        return reviewMongoQueryProcessor.deleteReview(review, reviewId);
+    }
+
+    // 면접 리뷰 수정
+    public ResponseEntity<?> updateReview(String clientId, String reviewId, PutInterviewReviewsDTO putInterviewReviewsDTO) {
+
+        // 사용자의 면접 리뷰가 없다면
+        if(!reviewRepository.existsByClientId(clientId)){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("사용자 정보가 없습니다.");
+        }
+
+        // reviewId에 해당하는 리뷰가 없다면
+        if (!reviewRepository.existsByInterviewReviewsReviewId(reviewId)){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("reviewId에 해당하는 리뷰가 없습니다.");
+        }
+
+        // 사용자 면접 리뷰 객체 가져옴
+        Review review = reviewRepository.findByClientId(clientId);
+
+        // reviewId에 해당하는 면접 리뷰를 갖고옴
+        Review.InterviewReviews interviewReviews = reviewMongoQueryProcessor.findInterviewReview(review, reviewId);
+
+        // 전달받은 DTO(PutInterviewReviewsDTO)를 interviewReviews 객체로 변환
+        reviewMapper.putInterviewReviewsDTOToInterviewReviews(putInterviewReviewsDTO, interviewReviews);
+
+        // 수정된 review 객체 저장
+        reviewRepository.save(review);
+
+        return ResponseEntity.status(HttpStatus.OK).body(String.format("%s 에 해당하는 면접 리뷰를 수정했습니다.", reviewId));
 
     }
 
