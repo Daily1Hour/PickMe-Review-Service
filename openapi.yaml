@@ -1,0 +1,284 @@
+openapi: 3.0.1
+info:
+  title: PickMe-Review
+  version: v1.0.0
+servers:
+- url: http://localhost:8080
+  description: Generated server url
+security:
+- BearerAuth: []
+paths:
+  /review/interview:
+    get:
+      tags:
+      - review-controller
+      operationId: findReview
+      parameters:
+      - name: reviewId
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+    put:
+      tags:
+      - review-controller
+      operationId: updateReview
+      parameters:
+      - name: reviewId
+        in: query
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PutInterviewReviewsDTO"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+    post:
+      tags:
+      - review-controller
+      operationId: createReview
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PostInterviewReviewsDTO"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+    delete:
+      tags:
+      - review-controller
+      operationId: deleteReview
+      parameters:
+      - name: reviewId
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+components:
+  schemas:
+    PutCommunicationDTO:
+      type: object
+      properties:
+        verbal:
+          type: string
+        nonVerbal:
+          type: string
+        interaction:
+          type: string
+    PutInterviewAnalysisDTO:
+      type: object
+      properties:
+        strengths:
+          type: string
+        improvements:
+          type: string
+        feedback:
+          type: string
+        difficulty:
+          type: string
+        interviewResultAnalysis:
+          type: string
+    PutInterviewDetailDTO:
+      type: object
+      properties:
+        companyName:
+          type: string
+        position:
+          type: string
+        interviewDateTime:
+          type: string
+          format: date-time
+        category:
+          type: string
+    PutInterviewProcessDTO:
+      type: object
+      properties:
+        format:
+          type: string
+        mood:
+          type: string
+        panel:
+          type: string
+        interviewRatio:
+          type: string
+    PutInterviewReviewsDTO:
+      type: object
+      properties:
+        interviewDetail:
+          $ref: "#/components/schemas/PutInterviewDetailDTO"
+        reviewDetail:
+          $ref: "#/components/schemas/PutReviewDetailDTO"
+    PutNextPreparationDTO:
+      type: object
+      properties:
+        technical:
+          type: string
+        expression:
+          type: string
+        additionalPractice:
+          type: string
+    PutPreparationDTO:
+      type: object
+      properties:
+        strengths:
+          type: string
+        improvements:
+          type: string
+    PutQuestionsAnswersDTO:
+      type: object
+      properties:
+        type:
+          type: string
+        question:
+          type: string
+        answer:
+          type: string
+        feedback:
+          type: string
+    PutReviewDetailDTO:
+      type: object
+      properties:
+        preparation:
+          $ref: "#/components/schemas/PutPreparationDTO"
+        interviewProcess:
+          $ref: "#/components/schemas/PutInterviewProcessDTO"
+        questionsAnswers:
+          type: array
+          items:
+            $ref: "#/components/schemas/PutQuestionsAnswersDTO"
+        communication:
+          $ref: "#/components/schemas/PutCommunicationDTO"
+        interviewAnalysis:
+          $ref: "#/components/schemas/PutInterviewAnalysisDTO"
+        nextPreparation:
+          $ref: "#/components/schemas/PutNextPreparationDTO"
+    PostCommunicationDTO:
+      type: object
+      properties:
+        verbal:
+          type: string
+        nonVerbal:
+          type: string
+        interaction:
+          type: string
+    PostInterviewAnalysisDTO:
+      type: object
+      properties:
+        strengths:
+          type: string
+        improvements:
+          type: string
+        feedback:
+          type: string
+        difficulty:
+          type: string
+        interviewResultAnalysis:
+          type: string
+    PostInterviewDetailDTO:
+      type: object
+      properties:
+        companyName:
+          type: string
+        position:
+          type: string
+        interviewDateTime:
+          type: string
+          format: date-time
+        category:
+          type: string
+    PostInterviewProcessDTO:
+      type: object
+      properties:
+        format:
+          type: string
+        mood:
+          type: string
+        panel:
+          type: string
+        interviewRatio:
+          type: string
+    PostInterviewReviewsDTO:
+      type: object
+      properties:
+        interviewDetail:
+          $ref: "#/components/schemas/PostInterviewDetailDTO"
+        reviewDetail:
+          $ref: "#/components/schemas/PostReviewDetailDTO"
+    PostNextPreparationDTO:
+      type: object
+      properties:
+        technical:
+          type: string
+        expression:
+          type: string
+        additionalPractice:
+          type: string
+    PostPreparationDTO:
+      type: object
+      properties:
+        strengths:
+          type: string
+        improvements:
+          type: string
+    PostQuestionsAnswersDTO:
+      type: object
+      properties:
+        type:
+          type: string
+        question:
+          type: string
+        answer:
+          type: string
+        feedback:
+          type: string
+    PostReviewDetailDTO:
+      type: object
+      properties:
+        preparation:
+          $ref: "#/components/schemas/PostPreparationDTO"
+        interviewProcess:
+          $ref: "#/components/schemas/PostInterviewProcessDTO"
+        questionsAnswers:
+          type: array
+          items:
+            $ref: "#/components/schemas/PostQuestionsAnswersDTO"
+        communication:
+          $ref: "#/components/schemas/PostCommunicationDTO"
+        interviewAnalysis:
+          $ref: "#/components/schemas/PostInterviewAnalysisDTO"
+        nextPreparation:
+          $ref: "#/components/schemas/PostNextPreparationDTO"
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
