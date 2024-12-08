@@ -2,11 +2,15 @@ package com.pickme.review.controller;
 
 import com.pickme.review.dto.post.PostInterviewReviewsDTO;
 import com.pickme.review.dto.put.PutInterviewReviewsDTO;
+import com.pickme.review.service.ExternalApiService;
 import com.pickme.review.service.ReviewService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
@@ -14,6 +18,8 @@ import org.springframework.web.bind.annotation.*;
 public class ReviewController {
 
     private final ReviewService reviewService;
+
+    private final ExternalApiService externalApiService;
 
     // 면접 리뷰 생성&추가
     @PostMapping("/interview")
@@ -57,6 +63,11 @@ public class ReviewController {
 
         return reviewService.updateReview(clientId, reviewId, putInterviewReviewsDTO);
 
+    }
+
+    @GetMapping("/apiTest")
+    public List<Map<String, String>> apiTest() {
+        return externalApiService.getExternalData();
     }
 
 }
