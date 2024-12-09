@@ -6,6 +6,7 @@ import com.pickme.review.service.ExternalApiService;
 import com.pickme.review.service.ReviewService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,6 +16,7 @@ import java.util.Map;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/review")
+@Slf4j
 public class ReviewController {
 
     private final ReviewService reviewService;
@@ -66,7 +68,8 @@ public class ReviewController {
     }
 
     @GetMapping("/apiTest")
-    public List<Map<String, String>> apiTest() {
+    public List<Map<String, String>> apiTest(HttpServletRequest request) {
+        log.info(request.getHeader("Authorization"));
         return externalApiService.getExternalData();
     }
 
