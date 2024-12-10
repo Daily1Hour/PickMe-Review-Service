@@ -64,7 +64,7 @@ public class ReviewService {
 
         // 사용자의 면접 리뷰가 없다면
         if(!reviewRepository.existsByClientId(clientId)){
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("사용자 정보가 없습니다.");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("사용자 정보가 없습니다.");
         }
 
         // reviewId가 null이 아닌데 reviewId에 해당하는 리뷰가 없다면
@@ -96,7 +96,7 @@ public class ReviewService {
     public ResponseEntity<?> deleteReview(String clientId, String reviewId){
         // 사용자의 면접 리뷰가 없다면
         if(!reviewRepository.existsByClientId(clientId)){
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("사용자 정보가 없습니다.");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("사용자 정보가 없습니다.");
         }
 
         // reviewId에 해당하는 리뷰가 없다면
@@ -115,7 +115,7 @@ public class ReviewService {
 
         // 사용자의 면접 리뷰가 없다면
         if(!reviewRepository.existsByClientId(clientId)){
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("사용자 정보가 없습니다.");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("사용자 정보가 없습니다.");
         }
 
         // reviewId에 해당하는 리뷰가 없다면

@@ -23,8 +23,7 @@ import java.util.Map;
 @Tag(name = "Review", description = "면접 리뷰(회고) API")
 @ApiResponse(responseCode = "400", description = "잘못된 요청")
 @ApiResponse(responseCode = "401", description = "권한 없음")
-@ApiResponse(responseCode = "403", description = "clientId에 해당하는 면접 일정 정보가 없음")
-@ApiResponse(responseCode = "404", description = "reviewId에 해당하는 면접 일정이 없음")
+@ApiResponse(responseCode = "404", description = "면접 리뷰 없음")
 public class ReviewController {
 
     private final ReviewService reviewService;
