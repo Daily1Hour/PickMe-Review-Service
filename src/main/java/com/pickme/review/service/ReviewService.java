@@ -88,7 +88,7 @@ public class ReviewService {
         getReviewDTO.setInterviewReviews(getInterviewReviewsDTO);
 
         // getReviewDTO를 반환
-        return ResponseEntity.status(HttpStatus.FOUND).body(getReviewDTO);
+        return ResponseEntity.status(HttpStatus.OK).body(getReviewDTO);
 
     }
 

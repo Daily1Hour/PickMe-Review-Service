@@ -16,6 +16,10 @@ public class JWTInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
 
+        if("OPTIONS".equalsIgnoreCase(request.getMethod())){
+            return true;
+        }
+
         // 클라이언트 요청 헤더에서 Authorization 정보를 가져옴
         String token = request.getHeader("Authorization");
 
