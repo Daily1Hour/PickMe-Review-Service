@@ -2,6 +2,7 @@ package com.pickme.review.service.mapper;
 
 import com.pickme.review.dto.get.GetInterviewReviewsDTO;
 import com.pickme.review.dto.get.GetReviewDTO;
+import com.pickme.review.dto.get.GetSidebarDTO;
 import com.pickme.review.dto.post.PostInterviewReviewsDTO;
 import com.pickme.review.dto.put.PutInterviewReviewsDTO;
 import com.pickme.review.entity.Review;
@@ -28,4 +29,8 @@ public interface ReviewMapper {
     @Mapping(target = "reviewId", ignore = true)
     void putInterviewReviewsDTOToInterviewReviews(PutInterviewReviewsDTO putInterviewReviewsDTO, @MappingTarget Review.InterviewReviews interviewReviews);
 
+    @Mapping(source = "reviewId", target = "reviewId")
+    @Mapping(source = "interviewDetail.companyName", target = "interviewDetail.companyName")
+    @Mapping(source = "interviewDetail.category", target = "interviewDetail.category")
+    List<GetSidebarDTO> toGetSidebarDTO(List<Review.InterviewReviews> interviewReviews);
 }
