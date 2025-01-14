@@ -2,7 +2,9 @@ package com.pickme.review.service;
 
 import com.pickme.review.dto.get.GetInterviewReviewsDTO;
 import com.pickme.review.dto.get.GetReviewDTO;
+import com.pickme.review.dto.post.PostApiResponseDTO;
 import com.pickme.review.dto.post.PostInterviewReviewsDTO;
+import com.pickme.review.dto.put.PutApiResponseDTO;
 import com.pickme.review.dto.put.PutInterviewReviewsDTO;
 import com.pickme.review.entity.Review;
 import com.pickme.review.repository.ReviewMongoQueryProcessor;
@@ -55,7 +57,9 @@ public class ReviewService {
         // review 객체 데이터베이스에 저장
         reviewRepository.save(review);
 
-        return ResponseEntity.status(HttpStatus.CREATED).body("면접 리뷰 추가 성공");
+        PostApiResponseDTO postApiResponseDTO = new PostApiResponseDTO("true", "성공", interviewReviews.getReviewId());
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(postApiResponseDTO);
 
     }
 
@@ -135,7 +139,9 @@ public class ReviewService {
         // 수정된 review 객체 저장
         reviewRepository.save(review);
 
-        return ResponseEntity.status(HttpStatus.OK).body(String.format("%s 에 해당하는 면접 리뷰를 수정했습니다.", reviewId));
+        PutApiResponseDTO putApiResponseDTO = new PutApiResponseDTO("true","면접 리뷰 수정 성공", reviewId);
+
+        return ResponseEntity.status(HttpStatus.OK).body(putApiResponseDTO);
 
     }
 
