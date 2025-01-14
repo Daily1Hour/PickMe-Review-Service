@@ -6,7 +6,14 @@ import lombok.Data;
 public class GetSidebarDTO {
     private String reviewId;
 
-    private String companyName;
+    private InterviewDetailDTO interviewDetail;
 
-    private String category;
+    @Data
+    public static class InterviewDetailDTO {
+        private String companyName;
+
+        private String category;
+    }
 }
+
+
