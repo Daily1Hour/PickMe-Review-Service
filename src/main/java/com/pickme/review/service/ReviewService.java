@@ -2,6 +2,7 @@ package com.pickme.review.service;
 
 import com.pickme.review.dto.get.GetInterviewReviewsDTO;
 import com.pickme.review.dto.get.GetReviewDTO;
+import com.pickme.review.dto.get.GetSidebarDTO;
 import com.pickme.review.dto.post.PostApiResponseDTO;
 import com.pickme.review.dto.post.PostInterviewReviewsDTO;
 import com.pickme.review.dto.put.PutApiResponseDTO;
@@ -93,6 +94,23 @@ public class ReviewService {
 
         // getReviewDTO를 반환
         return ResponseEntity.status(HttpStatus.OK).body(getReviewDTO);
+
+    }
+
+    // 면접 사이드 바 조회
+    public ResponseEntity<?> findSidebar(String clientId) {
+        // 사용자의 면접 리뷰가 없다면
+        if(!reviewRepository.existsByClientId(clientId)){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("사용자 정보가 없습니다.");
+        }
+
+        // 사용자 면접 리뷰 객체 가져옴
+        Review review = reviewRepository.findByClientId(clientId);
+
+        List<GetSidebarDTO> getSidebarDTO = reviewMapper.toGetSidebarDTO(review.getInterviewReviews());
+
+        // getReviewDTO를 반환
+        return ResponseEntity.status(HttpStatus.OK).body(getSidebarDTO);
 
     }
 
