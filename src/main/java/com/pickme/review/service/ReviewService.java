@@ -156,6 +156,8 @@ public class ReviewService {
         // reviewId에 해당하는 면접 리뷰를 갖고옴
         Review.InterviewReviews interviewReviews = reviewMongoQueryProcessor.findInterviewReview(review, reviewId);
 
+        interviewReviews.setUpdatedAt(new Date());
+
         // 전달받은 DTO(PutInterviewReviewsDTO)를 interviewReviews 객체로 변환
         reviewMapper.putInterviewReviewsDTOToInterviewReviews(putInterviewReviewsDTO, interviewReviews);
 
