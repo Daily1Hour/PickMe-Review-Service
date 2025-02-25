@@ -7,6 +7,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Date;
 
 /*
 // 클래스에 대한 접근 제어자와 static 키워드에 대한 설명
@@ -45,6 +46,10 @@ public class Review {
     public static class InterviewReviews {
 
         private String reviewId; // 면접 리뷰 고유 id
+
+        private Date createdAt;
+
+        private Date updatedAt;
 
         private InterviewDetail interviewDetail; // 면접 기본 정보(회사명, 지원 직무, 면접 시간, 면접 유형)
 
