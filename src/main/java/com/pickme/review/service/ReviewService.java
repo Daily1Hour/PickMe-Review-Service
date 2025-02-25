@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.Date;
 
 @Service
 @RequiredArgsConstructor
@@ -48,6 +49,10 @@ public class ReviewService {
 
         // 면접 리뷰 고유 id 설정
         interviewReviews.setReviewId(UUID.randomUUID().toString());
+
+        interviewReviews.setCreatedAt(new Date());
+
+        interviewReviews.setUpdatedAt(new Date());
 
         // 전달받은 DTO(PostInterviewReviews)를 interviewReviews 객체로 변환
         reviewMapper.PostInterviewReviewsToInterviewReviews(postInterviewReviewsDTO, interviewReviews);
