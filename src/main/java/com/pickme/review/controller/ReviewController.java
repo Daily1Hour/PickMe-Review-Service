@@ -56,6 +56,18 @@ public class ReviewController {
 
     }
 
+    // 면접 사이드 바 조회
+    @Operation(summary = "면접 리뷰 사이드바 조회", description = "면접 리뷰 사이드바 조회")
+    @ApiResponse(responseCode = "200", description = "면접 리뷰 사이드바 조회 요청 성공")
+    @GetMapping("/interview/side")
+    public ResponseEntity<?> findSidebar(HttpServletRequest request) {
+
+        String clientId = (String) request.getAttribute("clientId");
+
+        return reviewService.findSidebar(clientId);
+
+    }
+
     // 면접 리뷰 삭제
     @Operation(summary = "면접 리뷰 삭제", description = "reviewId에 해당하는 면접 리뷰 삭제")
     @ApiResponse(responseCode = "200", description = "면접 리뷰 삭제 성공")
