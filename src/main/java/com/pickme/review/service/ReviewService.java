@@ -16,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -48,6 +49,10 @@ public class ReviewService {
 
         // 면접 리뷰 고유 id 설정
         interviewReviews.setReviewId(UUID.randomUUID().toString());
+
+        interviewReviews.setCreatedAt(LocalDateTime.now());
+
+        interviewReviews.setUpdatedAt(LocalDateTime.now());
 
         // 전달받은 DTO(PostInterviewReviews)를 interviewReviews 객체로 변환
         reviewMapper.PostInterviewReviewsToInterviewReviews(postInterviewReviewsDTO, interviewReviews);
@@ -150,6 +155,8 @@ public class ReviewService {
 
         // reviewId에 해당하는 면접 리뷰를 갖고옴
         Review.InterviewReviews interviewReviews = reviewMongoQueryProcessor.findInterviewReview(review, reviewId);
+
+        interviewReviews.setUpdatedAt(LocalDateTime.now());
 
         // 전달받은 DTO(PutInterviewReviewsDTO)를 interviewReviews 객체로 변환
         reviewMapper.putInterviewReviewsDTOToInterviewReviews(putInterviewReviewsDTO, interviewReviews);

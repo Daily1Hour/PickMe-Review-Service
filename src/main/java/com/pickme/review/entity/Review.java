@@ -46,6 +46,10 @@ public class Review {
 
         private String reviewId; // 면접 리뷰 고유 id
 
+        private LocalDateTime createdAt;
+
+        private LocalDateTime updatedAt;
+
         private InterviewDetail interviewDetail; // 면접 기본 정보(회사명, 지원 직무, 면접 시간, 면접 유형)
 
         private ReviewDetail reviewDetail; // 면접 회고에 포함된 세부 항목
